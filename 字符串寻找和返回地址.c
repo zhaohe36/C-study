@@ -18,8 +18,8 @@ void strstr2(char*a,char*b) //a是要找到的字符串，b是大字符串
         if(*a==*(b+head))//如果第一个字符找到了，则进行下面的循环
             {
                 for (last = head+1;*(a+(last-head))==*(b+last);last++)//a递增1，b也从head开始递增1,直到a整个字符串的长度都匹配,则给成功戳temp=1
-                    {
-                        if(last-head==la-1) //由于这里last不增加第一个head，故last-head要比la小1
+                    {//因为检验完成后就结束了，last还来不及递加，故少一个。
+                        if(last-head==la-1) 
                             temp = 1;
                     }
             }
