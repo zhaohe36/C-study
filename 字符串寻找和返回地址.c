@@ -8,7 +8,7 @@ int strcount(char*a)//先设立判断字符串数量的东西
         ;
     return (i);
 }
-void strstr2(char*a,char*b) //a是要找到的字符串，b是大字符串
+long strstr2(char*a,char*b) //a是要找到的字符串，b是大字符串
 {
     int la = strcount(a),lb = strcount(b);
     int head,last,temp=0;//head是b地址中找到与a中第一个字符相同的地方
@@ -17,23 +17,28 @@ void strstr2(char*a,char*b) //a是要找到的字符串，b是大字符串
     {
         if(*a==*(b+head))//如果第一个字符找到了，则进行下面的循环
             {
-                for (last = head+1;*(a+(last-head))==*(b+last);last++)//a递增1，b也从head开始递增1,直到a整个字符串的长度都匹配,则给成功戳temp=1
-                    {//因为检验完成后就结束了，last还来不及递加，故少一个。
-                        if(last-head==la-1) 
-                            temp = 1;
+                for (last = head;*(a+(last-head))==*(b+last);)//a递增，b也从head开始递增,直到a整个字符串的长度都匹配,则给成功戳temp=1
+                    {   last++;
+                        if(last-head==la)
+                            {temp = 1;
+                            break;}
+                        
                     }
             }
     if(temp ==1)//判断是否找到，减少计算次数，避免不必要的损耗
     break;
     }
     if (temp ==1)
-    printf("找到了，地址为%ld,找到的后面字符串为%s",(b+head),(b+head));//这里我图省事，就没有一个个输出字符，那样才准确.这个是从head输出到b的结尾
+    {printf("找到了，地址为%ld,找到的后面字符串为%s",(b+head),(b+head));//这里我图省事，就没有一个个输出字符，那样才准确.这个是从head输出到b的结尾
+    return(b+head);}
     else
-    printf("none");
+    {printf("none");
+    return 0;
+    }
 }
 int main(void)
 {
 char a[]="youfuck";
-strstr2("youf",a);
+printf("%ld",strstr2("you",a));
 return 0;
 }
